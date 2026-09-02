@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -27,6 +28,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
@@ -45,11 +47,13 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun MainContent() {
-    Row(
+    Column(
         modifier = Modifier
-            .padding(all = 18.dp)
-            .fillMaxWidth(),
-        horizontalArrangement = Arrangement.Center
+            .padding(all = 24.dp)
+            .fillMaxSize(),
+        verticalArrangement = Arrangement.SpaceEvenly,
+        horizontalAlignment = Alignment.CenterHorizontally,
+
     ) {
         MyCustomButton(buttonText = "Тест")
         MyCustomButton(buttonText = "Тест1")
@@ -71,6 +75,8 @@ fun Preview() {
 fun MyCustomButton(buttonText: String) {
     BuyTownTheme(content = {
         Button(
+            modifier = Modifier
+                .fillMaxWidth(),
             onClick = { /* Действие при нажатии */ }
         ) {
             Text(text = buttonText)
