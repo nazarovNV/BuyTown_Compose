@@ -23,6 +23,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -51,12 +52,18 @@ fun MainContent() {
         modifier = Modifier
             .padding(all = 24.dp)
             .fillMaxSize(),
-        verticalArrangement = Arrangement.SpaceEvenly,
         horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(16.dp)
 
     ) {
-        MyCustomButton(buttonText = "Тест")
-        MyCustomButton(buttonText = "Тест1")
+        MyCustomText(text = "Добро пожаловать в приложение BuyTownCompose")
+        MyCustomText(text = "Войдите в аккаунт:")
+
+        MyInput(label = "Введите логин")
+        MyInput(label = "Введите пароль")
+        MyCustomButton(buttonText = "Войти")
+        MyCustomText(text = "Еще нет аккаунта? Зарегистрируйтесь:")
+        MyCustomButton(buttonText = "Регистрация")
     }
 
 
@@ -82,6 +89,31 @@ fun MyCustomButton(buttonText: String) {
             Text(text = buttonText)
         }
     })
+
+}
+
+@Composable
+fun MyCustomText(text: String) {
+    BuyTownTheme{
+        Text(
+            text = text,
+            modifier = Modifier.fillMaxWidth()
+        )
+    }
+
+}
+
+@Composable
+fun MyInput(label:String) {
+    var text by remember { mutableStateOf("") }
+    BuyTownTheme{
+        TextField(
+            modifier = Modifier.fillMaxWidth(),
+            value = text,
+            onValueChange = { text = it },
+            label = { Text(label) }
+        )
+    }
 
 }
 
