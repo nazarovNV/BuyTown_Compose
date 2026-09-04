@@ -35,87 +35,26 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.buytowncompose.presentation.common.CustomButton
+import com.example.buytowncompose.presentation.common.CustomInput
+import com.example.buytowncompose.presentation.common.CustomText
+import com.example.buytowncompose.presentation.screen.login.LoginScreen
 import com.example.buytowncompose.presentation.theme.BuyTownTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            MainContent()
+            LoginScreen()
         }
     }
 }
 
-@Composable
-fun MainContent() {
-    Column(
-        modifier = Modifier
-            .padding(all = 24.dp)
-            .fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(16.dp)
 
-    ) {
-        MyCustomText(text = "Добро пожаловать в приложение BuyTownCompose")
-        MyCustomText(text = "Войдите в аккаунт:")
-
-        MyInput(label = "Введите логин")
-        MyInput(label = "Введите пароль")
-        MyCustomButton(buttonText = "Войти")
-        MyCustomText(text = "Еще нет аккаунта? Зарегистрируйтесь:")
-        MyCustomButton(buttonText = "Регистрация")
-    }
-
-
-}
 
 
 @Preview(showBackground = true)
 @Composable
 fun Preview() {
-    MainContent()
+    LoginScreen()
 }
-
-
-
-@Composable
-fun MyCustomButton(buttonText: String) {
-    BuyTownTheme(content = {
-        Button(
-            modifier = Modifier
-                .fillMaxWidth(),
-            onClick = { /* Действие при нажатии */ }
-        ) {
-            Text(text = buttonText)
-        }
-    })
-
-}
-
-@Composable
-fun MyCustomText(text: String) {
-    BuyTownTheme{
-        Text(
-            text = text,
-            modifier = Modifier.fillMaxWidth()
-        )
-    }
-
-}
-
-@Composable
-fun MyInput(label:String) {
-    var text by remember { mutableStateOf("") }
-    BuyTownTheme{
-        TextField(
-            modifier = Modifier.fillMaxWidth(),
-            value = text,
-            onValueChange = { text = it },
-            label = { Text(label) }
-        )
-    }
-
-}
-
-
-
