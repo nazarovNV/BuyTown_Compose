@@ -5,7 +5,6 @@ import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import com.example.buytowncompose.MainActivity
 import android.content.Context
 import androidx.test.platform.app.InstrumentationRegistry
-import com.example.buytowncompose.data.source.LocalAccounts
 import org.junit.After
 import org.junit.Rule
 import org.junit.Test
@@ -24,8 +23,17 @@ class ShoppingFlowTest {
 
     @Test
     fun loginSearchCartCategoriesProfileAndRotation() {
-        LocalAccounts(InstrumentationRegistry.getInstrumentation().targetContext).register(login, "V")
+        compose.onNodeWithText("Авторизация").assertIsDisplayed()
+        compose.onNodeWithText("Тест").assertDoesNotExist()
+        compose.onNodeWithText("Тест1").assertDoesNotExist()
+        compose.onNodeWithText("Зарегистрироваться").performClick()
+        compose.onNodeWithText("Регистрация").assertIsDisplayed()
         compose.onNodeWithText("Логин").performTextInput(login)
+        compose.onNodeWithText("Пароль").performTextInput("V")
+        compose.onNodeWithText("Повторите пароль").performTextInput("V")
+        compose.onNodeWithText("Зарегистрироваться").performClick()
+        compose.waitUntil(10_000) { compose.onAllNodesWithText("Авторизация").fetchSemanticsNodes().isNotEmpty() }
+        compose.onNodeWithText("Логин").performTextReplacement(login)
         compose.onNodeWithText("Пароль").performTextInput("V")
         compose.onNodeWithText("Войти").performClick()
         compose.waitUntil(10_000) { compose.onAllNodesWithText("Найти товары").fetchSemanticsNodes().isNotEmpty() }
