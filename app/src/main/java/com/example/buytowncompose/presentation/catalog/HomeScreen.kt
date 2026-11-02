@@ -3,6 +3,7 @@ package com.example.buytowncompose.presentation.catalog
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.material.icons.Icons
@@ -17,7 +18,7 @@ fun HomeScreen(query: String, products: List<Product>, cart: CartUiState, onSear
     Column(Modifier.fillMaxSize()) {
         Text("Главная", style = MaterialTheme.typography.headlineLarge, modifier = Modifier.padding(horizontal = 20.dp))
         OutlinedTextField(value = query, onValueChange = onSearch, singleLine = true,
-            modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 12.dp),
+            modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 12.dp).testTag("home.search"),
             placeholder = { Text("Найти товары") }, leadingIcon = { Icon(Icons.Outlined.Search, null) },
             trailingIcon = { if (query.isNotEmpty()) IconButton(onClick = { onSearch("") }) { Icon(Icons.Outlined.Close, "Очистить поиск") } })
         Text(if (query.isBlank()) "Подобрали для вас" else "Найдено: ${products.size}",

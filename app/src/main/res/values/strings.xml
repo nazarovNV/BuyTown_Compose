@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">BuyTown Compose</string>
+    <string name="shopping_otter_description">Выдрёнок BuyTown бежит с пакетами покупок</string>
 </resources>

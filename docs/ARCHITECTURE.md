@@ -43,6 +43,8 @@
 
 ## Проверки
 
+UI-сценарии и команды запуска с визуальным наблюдением описаны в [UI_TESTS.md](UI_TESTS.md).
+
 ```powershell
 .\gradlew.bat :app:testDebugUnitTest :app:assembleDebug :app:assembleDebugAndroidTest
 .\gradlew.bat :app:connectedDebugAndroidTest

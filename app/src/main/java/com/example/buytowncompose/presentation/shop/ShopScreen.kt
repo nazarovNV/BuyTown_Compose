@@ -7,6 +7,7 @@ import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.buytowncompose.presentation.cart.*
@@ -24,7 +25,7 @@ fun ShopScreen(state: ShopUiState, cart: CartUiState,
             verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween) {
             if (state.backStack.size > 1) TextButton(onClick = onBack) { Text("Назад") }
             else Text("BuyTown", style = MaterialTheme.typography.titleLarge, color = MaterialTheme.colorScheme.primary)
-            if (state.destination != ShopDestination.Cart) TextButton(onClick = onCart) { Text("Корзина (${cart.count})") }
+            if (state.destination != ShopDestination.Cart) TextButton(onClick = onCart, modifier = Modifier.testTag("shop.cart")) { Text("Корзина (${cart.count})") }
         }
         Box(Modifier.weight(1f).fillMaxWidth()) {
             when (val destination = state.destination) {
@@ -42,7 +43,7 @@ fun ShopScreen(state: ShopUiState, cart: CartUiState,
             MainTab.entries.forEach { tab ->
                 val label = when (tab) { MainTab.HOME -> "Главная"; MainTab.CATALOG -> "Каталог"; MainTab.PROFILE -> "Профиль" }
                 val icon = when (tab) { MainTab.HOME -> Icons.Outlined.Home; MainTab.CATALOG -> Icons.Outlined.GridView; MainTab.PROFILE -> Icons.Outlined.Person }
-                NavigationBarItem(selected = state.tab == tab, onClick = { onTab(tab) },
+                NavigationBarItem(modifier = Modifier.testTag("tab:" + tab.name), selected = state.tab == tab, onClick = { onTab(tab) },
                     icon = { Icon(icon, contentDescription = null) }, label = { Text(label) })
             }
         }

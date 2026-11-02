@@ -8,6 +8,7 @@ import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
@@ -29,16 +30,16 @@ fun ProfileScreen(state: ProfileUiState, onName: (String) -> Unit, onAvatar: (In
         Text("Выберите аватарку", style = MaterialTheme.typography.titleMedium)
         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
             avatars.forEachIndexed { index, icon ->
-                FilledTonalIconToggleButton(checked = state.avatar == index, enabled = !state.isLoading && !state.isSaving, onCheckedChange = { onAvatar(index) }) {
+                FilledTonalIconToggleButton(modifier = Modifier.testTag("profile.avatar:" + index), checked = state.avatar == index, enabled = !state.isLoading && !state.isSaving, onCheckedChange = { onAvatar(index) }) {
                     Icon(icon, contentDescription = avatarNames[index])
                 }
             }
         }
         OutlinedTextField(value = state.name, onValueChange = onName, enabled = !state.isLoading && !state.isSaving, label = { Text("Ваше имя") },
-            modifier = Modifier.fillMaxWidth(), singleLine = true, isError = state.nameError,
+            modifier = Modifier.fillMaxWidth().testTag("profile.name"), singleLine = true, isError = state.nameError,
             supportingText = { if (state.nameError) Text("Введите имя") })
         Button(onClick = onSave, enabled = !state.isLoading && !state.isSaving,
-            modifier = Modifier.fillMaxWidth()) { Text(if (state.isSaving) "Сохранение…" else "Сохранить изменения") }
+            modifier = Modifier.fillMaxWidth().testTag("profile.save")) { Text(if (state.isSaving) "Сохранение…" else "Сохранить изменения") }
         if (state.isLoading) CircularProgressIndicator()
         if (state.saved) Text("Профиль сохранён на устройстве", color = MaterialTheme.colorScheme.primary)
         state.error?.let { Text(it, color = MaterialTheme.colorScheme.error)
@@ -46,6 +47,6 @@ fun ProfileScreen(state: ProfileUiState, onName: (String) -> Unit, onAvatar: (In
         }
         Text("О себе", style = MaterialTheme.typography.titleMedium)
         Text("Добро пожаловать в BuyTown! Здесь можно искать товары, изучать категории и собирать свою корзину.")
-        OutlinedButton(onClick = onLogout, modifier = Modifier.fillMaxWidth()) { Text("Выйти из аккаунта") }
+        OutlinedButton(onClick = onLogout, modifier = Modifier.fillMaxWidth().testTag("profile.logout")) { Text("Выйти из аккаунта") }
     }
 }

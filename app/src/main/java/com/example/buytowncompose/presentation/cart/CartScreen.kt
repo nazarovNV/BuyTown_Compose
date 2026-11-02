@@ -5,6 +5,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.buytowncompose.presentation.common.*
@@ -22,7 +23,7 @@ fun CartScreen(state: CartUiState, onProduct: (Int) -> Unit, onIncrease: (Int) -
         } else {
             LazyColumn(Modifier.weight(1f), contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
                 items(state.items, key = { it.product.id }) { item ->
-                    Card(Modifier.fillMaxWidth()) {
+                    Card(Modifier.fillMaxWidth().testTag("product:" + item.product.id)) {
                         Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                             TextButton(onClick = { onProduct(item.product.id) }) { Text(item.product.name) }
                             Text("${formatPrice(item.product.price)} за шт. • ${formatPrice(item.subtotal)}")
@@ -32,7 +33,7 @@ fun CartScreen(state: CartUiState, onProduct: (Int) -> Unit, onIncrease: (Int) -
                     }
                 }
             }
-            Text("Итого: ${formatPrice(state.total)}", style = MaterialTheme.typography.titleLarge, modifier = Modifier.padding(20.dp))
+            Text("Итого: ${formatPrice(state.total)}", style = MaterialTheme.typography.titleLarge, modifier = Modifier.padding(20.dp).testTag("cart.total"))
         }
     }
 }
